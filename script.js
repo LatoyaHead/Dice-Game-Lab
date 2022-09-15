@@ -1,5 +1,40 @@
+const button1 = document.getElementById('play-game')
+const button2 = document.getElementById('reset')
+const scoreContainer = document.getElementById('scoreContainer')
 
+button1.addEventListener('click', playGame)
+button2.addEventListener('click', resetGame)
 
+displayScore()
+
+function rollDice(){
+    const computer = Math.floor(Math.random() * 6) + 1; //or use Math.ceil starts at 0 so no need for the +1
+    const player = Math.floor(Math.random() * 6) + 1;
+    const winner = player > computer ? "Player Wins" : "Computer Wins"
+    return [computer, player, winner]
+}
+console.log(rollDice());
+
+function displayScore(values){ //or const displayScore = () => {}
+ const div1 = document.createElement('div')//created a div
+ div1.textContent = `Computer Score ${values[0]}`
+ const div2 = document.createElement('div')
+ div2.textContent = `Player Score ${values[1]}`
+ const div3 = document.createElement('div')
+ div3.textContent = `Winner ${values[2]}`
+ const children = [div1, div2, div3]
+ children.forEach(element => scoreContainer.appendChild(element))
+}
+
+function resetGame(){
+  const reset = scoreContainer.querySelectorAll('div')
+  const list = Array.from(reset) //turning the nodelist into an array for javascript so we can use the array functions like map(), filter, reduce...etc
+  list.map(list => list.remove())
+}
+function playGame(){
+  const values = rollDice() //return 3 vaules
+  displayScore(values)  // doesnt return
+}
 
 //================ Task 1 ==============================
         // Create a function (rollDice)
@@ -38,4 +73,4 @@
       // Attach the (playGame) function to the play game button
       // Attach the (resetGame) function to the reset button
 
-      // ===== Now let's host this game in GITHUB PAGES and style it !!!
+      // ===== Now let's host this game in GITHUB PAGES and style it 
